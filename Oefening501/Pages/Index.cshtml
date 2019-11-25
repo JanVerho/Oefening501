@@ -1,0 +1,58 @@
+﻿@page
+@using  Microsoft.AspNetCore.Html
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+    //Dictionary<string, int> dict = new Dictionary<string, int>() { { "aap", 7 }, { "beer", 25 } };
+
+    @* void renderAnimal(string animal, int n)
+        {
+            string classname = n < 10 ? "class=red" : "";
+            <div @classname> <span> @animal </span> <span> @n </span> </div>
+        }*@
+
+    @* void addStringsInDict(Dictionary<string, int> dict, string stringsFromForm)
+        {
+            foreach (string s in stringsFromForm.Split(" ", StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (!dict.ContainsKey(s))
+                    dict[s] = 0;
+                dict[s]++;
+            }
+        }*@
+
+    //string stringFromForm = "";
+    //string origstringFromForm = "";
+
+    if (Request.HasFormContentType) // gaat naar OnPost()
+    {
+        // Model.stringFromForm = Request.Form["values"];
+        // Model.origstringFromForm = $"{Request.Form["originalValues"]}";
+        //addStringsInDict(Model.dict, Model.origstringFromForm);
+        //addStringsInDict(Model.dict, Model.stringFromForm);
+    }
+
+}
+
+<form method="post">
+    <p>Enter something:</p>
+    <input type="hidden" name="originalValues" value="@Model.origstringFromForm @Model.stringFromForm" />
+    <input type="text" name="values" value="@Model.stringFromForm" />
+    <input type="submit" />
+</form>
+
+<div>Model.stringFromForm=@Model.stringFromForm</div>
+<div>Model.origstringFromForm=@Model.origstringFromForm</div>
+
+<hr />
+
+@foreach (string s in Model.dict.Keys)
+{
+    // renderAnimal(@s, Model.dict[@s]);
+
+    string ClassName = Model.renderAnimal(@s, Model.dict[s]);
+    <div @(ClassName)> <span> @s </span> <span> @Model.dict[s] </span> </div>
+}
+
+<hr />
